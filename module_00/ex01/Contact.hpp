@@ -13,11 +13,13 @@ private:
 	std::string	_nickname;
 	std::string	_phoneNumber;
 	std::string	_darkestSecret;
+	int			_index;
 
 	std::string	_getInput(std::string) const;
 public:
-	void	init(void);
+	void	init(int index);
 	void	display(void) const;
+	void	print(void) const;
 };
 
 #endif

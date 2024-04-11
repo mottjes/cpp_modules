@@ -2,17 +2,7 @@
 
 int	main()
 {
-	Contact	contact;
-
-
-	std:: cout << "Welcome to my Awesome PhoneBook" << std::endl << "Enter a command > " << std::endl;
-	
-	
-
-
-	// contact.init();
-	// contact.display();
+	PhoneBook	book;
 }
-
 
 // if tabs are in the input to much is displayed
