@@ -15,11 +15,11 @@ private:
 	std::string	_darkestSecret;
 	int			_index;
 
-	std::string	_getInput(std::string) const;
+	std::string	_getInput(std::string string) const;
 public:
 	void	init(int index);
+	void	printRow(void) const;
 	void	display(void) const;
-	void	print(void) const;
 };
 
 #endif

@@ -9,13 +9,11 @@ private:
 	Contact _contacts[8];
 	int		_addedContacts;
 	int		_i;
-	
-	void	_addContact(void);
-	void	_search(void);
-	void	_exit(void);
+
 public:
 	PhoneBook();
-	void	welcome(void);
+	void	add(void);
+	void	search(void) const;
 };
 
 #endif

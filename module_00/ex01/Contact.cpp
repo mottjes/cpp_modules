@@ -1,21 +1,46 @@
-#include "Contact.hpp"
+#include "PhoneBook.hpp"
 
-std::string Contact::_getInput(std::string string) const
+
+void	Contact::display(void) const
+{
+	std::cout << "FirstName: " << this->_firstName << std::endl;
+	std::cout << "LastName: " << this->_lastName << std::endl;
+	std::cout << "Nickname: " << this->_nickname << std::endl;
+	std::cout << "PhoneNumber: " << this->_phoneNumber << std::endl;
+	std::cout << "DarkestSecret: " << this->_darkestSecret << std::endl;
+}
+
+static std::string lengthCheck(std::string string)
+{
+	if (string.length() >= 10)
+	{
+		string = string.substr(0, 9);
+		string += ".";
+	}
+	return (string);
+}
+
+void	Contact::printRow(void) const
+{
+	std::cout << std::setw(10) << std::right << this->_index + 1 << "|";
+	std::cout << std::setw(10) << std::right << lengthCheck(this->_firstName) << "|";
+    std::cout << std::setw(10) << std::right << lengthCheck(this->_lastName) << "|";
+	std::cout << std::setw(10) << std::right << lengthCheck(this->_nickname) << "|" << std::endl;
+}
+
+std::string	Contact::_getInput(std::string string) const
 {
 	std::string input;
-	bool		valid;
+	bool valid;
 
 	valid = false;
-	std::cout << string;
 	while (!valid)
 	{
+		std::cout << string;
 		std::cin.clear();
 		std::getline (std::cin, input);
 		if (std::cin.eof())
-		{
-			std::cout << std::endl; 
 			exit(0);
-		}
 		if (!input.empty())
 		{
 			for (int i = 0; i < (int)input.length(); i++)
@@ -25,43 +50,17 @@ std::string Contact::_getInput(std::string string) const
 			}
 		}
 		if (!valid)
-			std::cout << "Invalid Input. Please enter again: ";
+			std::cout << "Invalid Input!" << std::endl;
 	}
 	return input;
-}		
+}
 
 void	Contact::init(int index)
 {
-	this->_firstName = _getInput("Please enter your first name: ");
-	this->_lastName = _getInput("Please enter your last name: ");
-	this->_nickname = _getInput("Please enter your nickname: ");
-	this->_phoneNumber = _getInput("Please enter your phone number: ");
-	this->_darkestSecret = _getInput("Please enter your darkest secret: ");
 	this->_index = index;
-}
-
-void	Contact::display(void) const
-{
-	std::cout << std::setw(10) << std::right << this->_index + 1 << "|";
-	if (this->_firstName.length() > 10)
-		std::cout << std::setw(9) << std::right << std::string(this->_firstName, 0, 9) << "." << "|";
-	else
-		std::cout << std::setw(10) << std::right << std::string(this->_firstName, 0, 10) << "|";
-	if (this->_lastName.length() > 10)
-    	std::cout << std::setw(9) << std::right << std::string(this->_lastName, 0, 9) << "." << "|";
-	else
-		std::cout << std::setw(10) << std::right << std::string(this->_lastName, 0, 10) << "|";
-	if (this->_nickname.length() > 10)
-		std::cout << std::setw(9) << std::right << std::string(this->_nickname, 0, 9) << "." << "|" << std::endl;
-	else
-		std::cout << std::setw(10) << std::right << std::string(this->_nickname, 0, 10) << "|" << std::endl;
-}	
-
-void	Contact::print(void) const
-{
-	std::cout << "FirstName: " << this->_firstName << std::endl;
-	std::cout << "LastName: " << this->_lastName << std::endl;
-	std::cout << "Nickname: " << this->_nickname << std::endl;
-	std::cout << "PhoneNumber: " << this->_phoneNumber << std::endl;
-	std::cout << "DarkestSecret: " << this->_darkestSecret << std::endl;
+	this->_firstName = _getInput("Please enter first name: ");
+	this->_lastName = _getInput("Please enter last name: ");
+	this->_nickname = _getInput("Please enter nickname: ");
+	this->_phoneNumber = _getInput("Please enter phonenumber: ");
+	this->_darkestSecret = _getInput("Please enter darkest secret: ");
 }
