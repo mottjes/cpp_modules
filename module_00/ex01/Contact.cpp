@@ -1,6 +1,5 @@
 #include "PhoneBook.hpp"
 
-
 void	Contact::display(void) const
 {
 	std::cout << "FirstName: " << this->_firstName << std::endl;
