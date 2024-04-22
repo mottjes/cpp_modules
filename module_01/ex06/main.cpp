@@ -3,7 +3,7 @@
 int	main(int argc, char **argv)
 {
 	Harl harl;
-	std::string	levels[4] = {"debug", "info", "warning", "error"};
+	std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	int level = 0;
 
 	if (argc != 2)
