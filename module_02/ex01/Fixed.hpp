@@ -13,10 +13,10 @@ private:
 
 public:
     Fixed();
-	Fixed(const Fixed &other);
+	Fixed(const Fixed &rhs);
 	Fixed(const int nbr);
 	Fixed(const	float nbr);
-	Fixed& operator=(const Fixed &other);
+	Fixed& operator=(const Fixed &rhs);
 	~Fixed();
 
 	int		getRawBits(void) const;
