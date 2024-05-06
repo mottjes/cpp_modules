@@ -1,11 +1,12 @@
 #include "ScavTrap.hpp"
+#include "FragTrap.hpp"
+
 
 int	main(void)
 {
 	/*
 	ClapTrap a("Bob");
 	ClapTrap b;
-
 
 	a.attack("Peter");
 	b.takeDamage(8);
@@ -14,7 +15,7 @@ int	main(void)
 	a.attack("Daniel");
 	for (int i = 0; i < 8; i++)
 		a.beRepaired(1);
-	*/
+	
 	ScavTrap c;
 	ScavTrap d("Peter");
 
@@ -26,4 +27,17 @@ int	main(void)
 	c.beRepaired(20);
 	c.guardGate();
 	c.guardGate();
+	*/
+	FragTrap e;
+	FragTrap f("Alice");
+
+	e.highFivesGuys();
+	e.attack("Tom");
+	e.takeDamage(101);
+	e.takeDamage(1);
+	e.attack("some random dude");
+	e.highFivesGuys();
+	f.takeDamage(20);
+	f.beRepaired(10);
+	f.highFivesGuys();
 }
