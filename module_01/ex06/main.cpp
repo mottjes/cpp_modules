@@ -17,14 +17,18 @@ int	main(int argc, char **argv)
 	{
 		case 1:
 			harl.complain("debug");
+			// fall through
 		case 2:
 			harl.complain("info");
+			// fall through
 		case 3:
 			harl.complain("warning");
+			// fall through
 		case 4:
 			harl.complain("error");
 			break ;
 		default:
 			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+			break ;
 	}
 }
