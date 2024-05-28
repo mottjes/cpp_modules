@@ -4,21 +4,17 @@
 
 std::string	replace(char **argv, std::string line)
 {
-	std::size_t	found;
-
-	found = 0;
-	while (1)
+	std::size_t	found = 0;
+	int	replace_len = std::string(argv[3]).length();
+	
+	found = line.find(argv[2], found);
+	while (found != std::string::npos)
 	{
-		found = line.find(argv[2], found);
-		if (found != std::string::npos)
-		{
-			line.erase(found, std::string(argv[2]).size());
-			line.insert(found, argv[3]);
-			return line;
-		}
-		else
-			return line;
+		line.erase(found, std::string(argv[2]).size());
+		line.insert(found, argv[3]);
+		found = line.find(argv[2], found + replace_len);
 	}
+	return line;
 }
 
 int	main(int argc, char **argv)
