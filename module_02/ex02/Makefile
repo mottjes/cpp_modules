@@ -1,4 +1,4 @@
-NAME		= a.out
+NAME		= fixed
 
 SRC			=	main.cpp		\
 				Fixed.cpp		\
