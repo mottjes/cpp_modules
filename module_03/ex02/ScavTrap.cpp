@@ -53,7 +53,7 @@ void	ScavTrap::attack(const std::string& target)
 		_energyPoints--;
 	}
 	else
-		std::cout << "ScavTrap " << _name << " don't has energy points left!" << std::endl;
+		std::cout << "ScavTrap " << _name << " don't has energy points or hit points left!" << std::endl;
 }
 
 void	ScavTrap::guardGate()
@@ -66,5 +66,5 @@ void	ScavTrap::guardGate()
 	else if (_guardMode == true)
 		std::cout << _name << " is already in Gate keeper mode!" << std::endl;
 	else
-		std::cout << "ClapTrap " << _name << " don't has energy points left!" << std::endl;
+		std::cout << "ClapTrap " << _name << " don't has energy points or hit points left!" << std::endl;
 }

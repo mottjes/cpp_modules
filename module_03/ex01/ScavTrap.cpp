@@ -40,7 +40,7 @@ ScavTrap& ScavTrap::operator=(const ScavTrap &rhs)
 }
 
 // Destructor
-ScavTrap::~ScavTrap()
+ScavTrap::~ScavTrap() 
 {
 	std::cout << "ScavTrap Destroctor called" << std::endl;
 }
@@ -53,12 +53,12 @@ void	ScavTrap::attack(const std::string& target)
 		_energyPoints--;
 	}
 	else
-		std::cout << "ScavTrap " << _name << " don't has energy points left!" << std::endl;
+		std::cout << "ScavTrap " << _name << " don't has energy points or hit points left!" << std::endl;
 }
 
 void	ScavTrap::guardGate()
 {
-	if (_energyPoints > 0 && _guardMode == false)
+	if (_energyPoints > 0 && _hitPoints > 0 && _guardMode == false)
 	{
 		std::cout <<  _name << " is now in Gate keeper mode!" << std::endl;
 		_guardMode = true;
@@ -66,5 +66,5 @@ void	ScavTrap::guardGate()
 	else if (_guardMode == true)
 		std::cout << _name << " is already in Gate keeper mode!" << std::endl;
 	else
-		std::cout << "ClapTrap " << _name << " don't has energy points left!" << std::endl;
+		std::cout << "ClapTrap " << _name << " don't has energy or hit points left!" << std::endl;
 }
