@@ -2,18 +2,21 @@
 
 Character::Character() : _name("default")
 {
+    std::cout << "Character Default Constructor called" << std::endl;
 	for(int i = 0; i < 4; i++)
 		_slots[i] = NULL;
 }
 
 Character::Character(std::string name) : _name(name)
 {
+    std::cout << "Character Constructor called" << std::endl;
 	for(int i = 0; i < 4; i++)
 		_slots[i] = NULL;
 }
 
 Character::Character(const Character &rhs)
 {
+    std::cout << "Character copy Constructor called" << std::endl;
     *this = rhs;
 }
 
@@ -37,6 +40,7 @@ Character& Character::operator=(const Character &rhs)
 
 Character::~Character()
 {
+    std::cout << "Character Destructor called" << std::endl;
     for (int i = 0; i < 4; i++)
     {
         if (_slots[i])

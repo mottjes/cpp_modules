@@ -1,12 +1,12 @@
 NAME		= a.out
 
-SRC			=	main.cpp		\
-				Animal.cpp		\
-				Dog.cpp			\
-				Cat.cpp			\
-				WrongAnimal.cpp	\
-				WrongCat.cpp	\
-				Brain.cpp		\
+SRC			=	src/main.cpp		\
+				src/Animal.cpp		\
+				src/Dog.cpp			\
+				src/Cat.cpp			\
+				src/WrongAnimal.cpp	\
+				src/WrongCat.cpp	\
+				src/Brain.cpp		\
 
 OBJ			= $(SRC:.cpp=.o)
 

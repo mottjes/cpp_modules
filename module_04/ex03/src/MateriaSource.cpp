@@ -2,12 +2,14 @@
 
 MateriaSource::MateriaSource()
 {
+    std::cout << "MateriaSource Default Constructor called" << std::endl;
     for(int i = 0; i < 4; i++)
 		_slots[i] = NULL;
 }
 
 MateriaSource::MateriaSource(const MateriaSource &rhs)
 {
+    std::cout << "MateriaSource copy Constructor called" << std::endl;
     *this = rhs;
 }
 
@@ -30,6 +32,7 @@ MateriaSource& MateriaSource::operator=(const MateriaSource &rhs)
 
 MateriaSource::~MateriaSource()
 {
+    std::cout << "MateriaSource Destuctor called" << std::endl;
     for (int i = 0; i < 4; i++)
     {
         if (_slots[i])
