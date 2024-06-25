@@ -1,8 +1,8 @@
 NAME		= a.out
 
-SRC			=	main.cpp		\
-				Bureaucrat.cpp	\
-				Form.cpp		\
+SRC			=	src/main.cpp		\
+				src/Bureaucrat.cpp	\
+				src/Form.cpp		\
 
 OBJ			= $(SRC:.cpp=.o)
 

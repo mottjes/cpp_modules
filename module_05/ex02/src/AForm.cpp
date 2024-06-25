@@ -1,4 +1,4 @@
-#include "AForm.hpp"
+#include "../include/AForm.hpp"
 
 AForm::AForm():   _name("default"), _signed(false), _gradeToSign(150), _gradeToExecute(150)
 {
@@ -82,6 +82,11 @@ const char *AForm::GradeTooLowException::what(void) const throw()
 const char *AForm::GradeTooHighException::what(void) const throw()
 {
 	return ("Grade too high!");
+}
+
+const char *AForm::FormNotSignedException::what(void) const throw()
+{
+	return ("Form needs to be signed before executing!");
 }
 
 std::ostream& operator<<(std::ostream& os, const AForm& form)

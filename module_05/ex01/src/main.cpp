@@ -1,4 +1,4 @@
-#include "Bureaucrat.hpp"
+#include "../include/Bureaucrat.hpp"
 
 int main(void)
 {
@@ -8,7 +8,7 @@ int main(void)
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << '\n';
+        std::cerr << e.what() << std::endl;
     }
 
     Form b("Test", 10, 10);

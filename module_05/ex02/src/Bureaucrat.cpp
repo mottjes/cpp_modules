@@ -1,4 +1,4 @@
-#include "Bureaucrat.hpp"
+#include "../include/Bureaucrat.hpp"
 
 //	Default Constructor
 Bureaucrat::Bureaucrat():   _name("default"), _grade(150)
@@ -76,7 +76,7 @@ void	Bureaucrat::decrementGrade(void)
 	this->setGrade(_grade + 1);
 }
 
-void	Bureaucrat::signForm(Form &form)
+void	Bureaucrat::signForm(AForm &form)
 {
 	if (form.getSigned() == true)
 	{
@@ -92,6 +92,19 @@ void	Bureaucrat::signForm(Form &form)
 	{
 		std::cout << _name << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
 	}
+}
+
+void Bureaucrat::executeForm(AForm const & form)
+{
+    try
+    {
+        form.execute(*this);
+        std::cout << _name << " executed " << form.getName() << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 }
 
 const char *Bureaucrat::GradeTooLowException::what(void) const throw()

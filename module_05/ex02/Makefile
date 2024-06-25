@@ -1,8 +1,11 @@
 NAME		= a.out
 
-SRC			=	main.cpp		\
-				Bureaucrat.cpp	\
-				Form.cpp		\
+SRC			=	src/main.cpp						\
+				src/Bureaucrat.cpp					\
+				src/AForm.cpp						\
+				src/PresidentialPardonForm.cpp		\
+				src/RobotomyRequestForm.cpp			\
+				src/ShrubberyCreationForm.cpp		\
 
 OBJ			= $(SRC:.cpp=.o)
 
