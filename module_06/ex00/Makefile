@@ -1,6 +1,7 @@
-NAME		= a.out
+NAME		= convert
 
-SRC			=	src/main.cpp		\
+SRC			=	src/main.cpp				\
+				src/ScalarConverter.cpp 	\
 
 OBJ			= $(SRC:.cpp=.o)
 

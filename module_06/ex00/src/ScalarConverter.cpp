@@ -21,7 +21,7 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter &rhs)
 
 static bool isChar(const std::string literal)
 {
-	if (literal.lenght() == 1 || !std::isdigit(literal[0]) || std::isprint(literal[0]))
+	if (literal.length() == 1 && !std::isdigit(literal[0]) && std::isprint(literal[0]))
 		return true;
 	return false;
 }
@@ -32,7 +32,7 @@ static bool isInt(const std::string literal)
 
 	if (literal[0] == '-' || literal[0] == '+')
 		i++;
-	for (; i < literal.lenght(); i++)
+	for (; i < literal.length(); i++)
 	{
 		if (!std::isdigit(literal[i]))
 			return false;
@@ -47,13 +47,13 @@ static bool isFloat(const std::string literal)
 
 	if (literal == "-inff" || literal == "+inff" || literal == "nanf")
 		return true;
-	if (literal[literal.lenght() - 1] != 'f')
+	if (literal[literal.length() - 1] != 'f')
 		return false;
 	if (literal[0] == '-' || literal[0] == '+')
 		i++;
 	if (literal[i] == '.')
 		return false;
-	for (; i < literal.lenght() - 1; i++)
+	for (; i < literal.length() - 1; i++)
 	{
 		if (!std::isdigit(literal[i]) && literal[i] != '.')
 			return false;
@@ -76,7 +76,7 @@ static bool isDouble(const std::string literal)
 		i++;
 	if (literal[i] == '.')
 		return false;
-	for (; i < literal.lenght(); i++)
+	for (; i < literal.length(); i++)
 	{
 		if (!std::isdigit(literal[i]) && literal[i] != '.')
 			return false;
@@ -101,18 +101,18 @@ static e_type	getType(const std::string literal)
 {
 	if (isChar(literal))
 		return CHAR;
-	if (isInt(liteal))
+	if (isInt(literal))
 		return INT;
 	if (isFloat(literal))
 		return FLOAT;
-	if (isDouble(liteal))
+	if (isDouble(literal))
 		return DOUBLE;
 	return NONE;
 }
 
 static void	convertChar(char c)
 {
-	std::cout << "  Char: " << c << std::endl;
+	std::cout << "  Char: '" << c << "'" << std::endl;
 	std::cout << "   Int: " << static_cast<int>(c) << std::endl;
 	std::cout << " Float: " << static_cast<float>(c) << ".0f" << std::endl;
 	std::cout << "Double: " << static_cast<double>(c) << ".0" << std::endl;
@@ -157,7 +157,7 @@ static void	convertInt(std::string literal)
 		nb = std::atoi(literal.c_str());
 		
 		if (isascii(nb) && std::isprint(nb))
-			std::cout << "  Char: " << static_cast<char>(nb) << std::endl;
+			std::cout << "  Char: '" << static_cast<char>(nb) << "'" << std::endl;
 		else
 			std::cout << "  Char: Non displayable" << std::endl;
 		std::cout << "   Int: " << nb << std::endl;
@@ -168,38 +168,87 @@ static void	convertInt(std::string literal)
 
 static void	convertFloat(std::string literal)
 {
-	int nb;
+	float nb = std::atof(literal.c_str());
 
-	
+	if (nb > static_cast<float>(std::numeric_limits<int>::max())
+		|| nb < static_cast<float>(std::numeric_limits<int>::min())
+		|| literal == "+inff" || literal == "-inff" || literal == "nanf")
+	{
+		std::cout << "  Char: impossible" << std::endl;
+		std::cout << "   Int: impossible" << std::endl;
+		std::cout << " Float: " << nb << "f" << std::endl;
+		std::cout << "Double: " << static_cast<double>(nb) << std::endl;
+	}
+	else
+	{
+		if (isascii(nb) && std::isprint(nb))
+			std::cout << "  Char: '" << static_cast<char>(nb) << "'" << std::endl;
+		else
+			std::cout << "  Char: Non displayable" << std::endl;
+		std::cout << "   Int: " << static_cast<int>(nb) << std::endl;
+		if (literal == "+inff" || literal == "-inff" || literal == "nanf")
+			std::cout << " Float: " << nb <<  "f" << std::endl;
+		else
+			std::cout << " Float: " << nb <<  ".0f" << std::endl;
+		if (literal == "+inff" || literal == "-inff" || literal == "nanf")
+			std::cout << "Double: " << static_cast<double>(nb) << std::endl;
+		else
+			std::cout << "Double: " << static_cast<double>(nb) << ".0" << std::endl;
+	}
 }
 
+static void	convertDouble(std::string literal)
+{
+	double nb = std::atof(literal.c_str());
 
-
-
-
-
-
-
-
-
-
+	if (nb > static_cast<double>(std::numeric_limits<int>::max())
+		|| nb < static_cast<double>(std::numeric_limits<int>::min())
+		|| literal == "+inf" || literal == "-inf" || literal == "nan")
+	{
+		std::cout << "  Char: impossible" << std::endl;
+		std::cout << "   Int: impossible" << std::endl;
+		std::cout << " Float: " << nb << "f" << std::endl;
+		std::cout << "Double: " << static_cast<double>(nb) << std::endl;
+	}
+	else
+	{
+		if (isascii(nb) && std::isprint(nb))
+			std::cout << "  Char: '" << static_cast<char>(nb) << "'" << std::endl;
+		else
+			std::cout << "  Char: Non displayable" << std::endl;
+		std::cout << "   Int: " << static_cast<int>(nb) << std::endl;
+		if (literal == "+inf" || literal == "-inf" || literal == "nan")
+			std::cout << " Float: " << nb <<  "f" << std::endl;
+		else
+			std::cout << " Float: " << nb <<  ".0f" << std::endl;
+		if (literal == "+inf" || literal == "-inf" || literal == "nan")
+			std::cout << "Double: " << static_cast<double>(nb) << std::endl;
+		else
+			std::cout << "Double: " << static_cast<double>(nb) << ".0" << std::endl;
+	}
+}
 
 void	ScalarConverter::convert(const std::string literal)
 {
 	switch(getType(literal))
 	{
-		case CHAR
+		case CHAR:
 			convertChar(literal[0]);
-		case INT
+			break ;
+		case INT:
 			convertInt(literal);
-		case FLOAT
+			break ;
+		case FLOAT:
 			convertFloat(literal);
-		case DOUBLE
+			break ;
+		case DOUBLE:
 			convertDouble(literal);
-		default
+			break ;
+		default:
 			std::cout << "  Char: impossible" << std::endl;
 			std::cout << "   Int: impossible" << std::endl;
 			std::cout << " Float: impossible" << std::endl;
 			std::cout << "Double: impossible" << std::endl;
+			break;
 	}
 }
