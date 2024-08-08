@@ -8,8 +8,8 @@
 class Span
 {
 private:
-	unsigned int		_N;
-	std::vector<int>	_Numbers;
+	unsigned int		_n;
+	std::vector<int>	_numbers;
 
 	Span();
 
@@ -20,6 +20,7 @@ public:
 	~Span();
 
 	void	addNumber(int number);
+	void	addNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end);
 	int 	shortestSpan();
 	int		longestSpan();
 };

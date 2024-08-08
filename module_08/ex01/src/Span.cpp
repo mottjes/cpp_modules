@@ -1,10 +1,10 @@
 #include "../include/Span.hpp"
 
-Span::Span() : _N(0)
+Span::Span() : _n(0)
 {
 }
 
-Span::Span(unsigned int N) : _N(N)
+Span::Span(unsigned int n) : _n(n)
 {
 }
 
@@ -16,7 +16,7 @@ Span::Span(const Span &rhs)
 Span& Span::operator=(const Span &rhs)
 {
 	if (this != &rhs)
-		_N = rhs._N;
+		_n = rhs._n;
 	return *this;
 }
 
@@ -26,19 +26,27 @@ Span::~Span()
 
 void	Span::addNumber(int number)
 {
-	if (_Numbers.size() + 1 > _N)
+	if (_numbers.size() + 1 > _n)
 		throw std::logic_error("The Span is full!");
 	else
-		_Numbers.push_back(number);
+		_numbers.push_back(number);
+}
+
+void	Span::addNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+{
+	if ((_numbers.size() + std::distance(begin, end)) > _n)
+		throw std::logic_error("The Span is full!");
+	else
+		_numbers.insert(_numbers.end(), begin, end);
 }
 
 int	Span::shortestSpan()
 {
-	if (_Numbers.size() < 2)
+	if (_numbers.size() < 2)
 		throw std::logic_error("Needs two or more numbers to calculate shortest Span!");
 	else
 	{
-		std::vector<int> copy(_Numbers);
+		std::vector<int> copy(_numbers);
 
 		std::sort(copy.begin(), copy.end());
 
@@ -54,14 +62,14 @@ int	Span::shortestSpan()
 
 int Span::longestSpan()
 {
-	if (_Numbers.size() < 2)
+	if (_numbers.size() < 2)
 		throw std::logic_error("Needs two or more numbers to calculate longest Span!");
 	else
 	{
 		int min, max;
 		
-		min = *std::min_element(_Numbers.begin(), _Numbers.end());
-		max = *std::max_element(_Numbers.begin(), _Numbers.end());
+		min = *std::min_element(_numbers.begin(), _numbers.end());
+		max = *std::max_element(_numbers.begin(), _numbers.end());
 		return (max - min);
 	}
 }
