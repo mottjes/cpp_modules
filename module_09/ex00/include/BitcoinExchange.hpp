@@ -20,8 +20,12 @@ public:
 
     void    parseData(std::string line);
     void    handleInput(std::string input);
-    void    parseInput(std::string line);
-    void    validateDate(std::string token);
-    void    validateValue(std::string token);
+    void    validateInput(std::string line);
+    bool    validateDate(std::string token, int *year, int *month, int *day);
+    bool    validateValue(std::string token, float *value);
+    bool    isLeapYear(int year);
+    void    calculate(float value, std::string date);
+    void    print(std::string date, float value, float exchangeRate);
+
    
 };
