@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
+#include <ctime>
 #include <vector>
 #include <deque>
 #include <utility>
@@ -11,17 +12,26 @@ class PmergeMe
 {
 private:
     std::vector<int>                    _vector;
-    std::vector<std::pair<int, int> >    _pairV;
+    std::vector<std::pair<int, int> >   _vectorPairs;
     std::deque<int>                     _deque;
-    std::deque<std::pair<int, int> >     _pairD;
+    std::deque<std::pair<int, int> >    _dequePairs;
 
-    int                 getJacobsthalNumber(int n);
-    std::vector<int>    calculateOrderOfInsertation(int pendSize);
-    int                 binarySearch(std::vector<int> &mainChain, int low, int high, int target);
-    void                sortVector();
     bool                validateInput(int argc, char **argv);
+    void                printBeforeSorting(int argc, char **argv);
+    void                printAfterSorting();
     void                fillVector(int argc, char **argv);
     void                fillDeque(int argc, char **argv);
+    void                sortVector();
+    void                sortDeque();
+    void                buildVectorPairs();
+    void                buildDequePairs();
+    template<typename T>
+    void                recursiveInsertionSort(T& pairs, int n);
+    template<typename T>
+    int                 binarySearch(T &mainChain, int low, int high, int target);
+    template<typename T>
+    void                calculateOrderOfInsertation(T &order, int pendSize);
+    int                 getJacobsthalNumber(int n);
 
 public:
     PmergeMe();

@@ -1,4 +1,4 @@
-NAME		= PmegreMe
+NAME		= PmergeMe
 
 SRC			=	src/main.cpp				\
 				src/PmergeMe.cpp			\

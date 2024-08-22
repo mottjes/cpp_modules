@@ -7,8 +7,8 @@ int main(int argc, char **argv)
         std::cerr << "Error: no input" << std::endl;
         return 1;
     }
-    PmergeMe pmergeMe;
+    PmergeMe sorter;
     
-    pmergeMe.sort(argc, argv);
+    sorter.sort(argc, argv);
     return 0;
 }
