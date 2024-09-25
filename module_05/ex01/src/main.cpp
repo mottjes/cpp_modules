@@ -10,16 +10,21 @@ int main(void)
     {
         std::cerr << e.what() << std::endl;
     }
+    try
+    {
+        Form b("Test", 10, 10);
+        std::cout << std::endl << b << std::endl << std::endl;
 
-    Form b("Test", 10, 10);
+        Bureaucrat bob("Bob", 5);
+        Bureaucrat otto("Otto", 145);
 
-    std::cout << std::endl << b << std::endl << std::endl;
+        bob.signForm(b);
+        otto.signForm(b);
 
-    Bureaucrat c("Bob", 5);
-    Bureaucrat d("Otto", 145);
-
-    d.signForm(b);
-    c.signForm(b);
-
-    std::cout << std::endl << b << std::endl << std::endl;
+        std::cout << std::endl << b << std::endl << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }

@@ -1,4 +1,4 @@
-NAME		= a.out
+NAME		= ex03
 
 SRC			=	src/main.cpp						\
 				src/Intern.cpp						\

@@ -2,11 +2,11 @@
 
 int main(void)
 {
-    Bureaucrat  b1("Bob", 150);
-    std::cout << b1 << std::endl;
-
     try
     {
+        Bureaucrat  b1("Bob", 150);
+        std::cout << b1 << std::endl;
+    
         b1.incrementGrade();
         std::cout << b1 << std::endl;
 
@@ -21,13 +21,12 @@ int main(void)
     {
         std::cerr << e.what() << std::endl;
     }
-    
     try
     {
         //  throws exception
         Bureaucrat  b2("Anna", 0);
     }
-     catch (std::exception &e)
+    catch (std::exception &e)
     {
         std::cerr << e.what() << std::endl;
     }

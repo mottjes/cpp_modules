@@ -1,4 +1,4 @@
-NAME		= a.out
+NAME		= ex02
 
 SRC			=	src/main.cpp						\
 				src/Bureaucrat.cpp					\

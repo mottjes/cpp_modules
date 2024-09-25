@@ -45,7 +45,7 @@ AForm* Intern::makeForm(std::string formName,std::string target)
                                                         &Intern::createPresidentalPardonForm };
 
     std::cout << "Intern creates " << formName << std::endl;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 3; i++)
 	{
 		if (Forms[i] == formName)
 			return (this->*funcPtrArray[i])(target);;
