@@ -186,14 +186,8 @@ static void	convertFloat(std::string literal)
 		else
 			std::cout << "  Char: Non displayable" << std::endl;
 		std::cout << "   Int: " << static_cast<int>(nb) << std::endl;
-		if (literal == "+inff" || literal == "-inff" || literal == "nanf")
-			std::cout << " Float: " << nb <<  "f" << std::endl;
-		else
-			std::cout << " Float: " << nb <<  ".0f" << std::endl;
-		if (literal == "+inff" || literal == "-inff" || literal == "nanf")
-			std::cout << "Double: " << static_cast<double>(nb) << std::endl;
-		else
-			std::cout << "Double: " << static_cast<double>(nb) << ".0" << std::endl;
+		std::cout << " Float: " << nb <<  ".0f" << std::endl;
+		std::cout << "Double: " << static_cast<double>(nb) << ".0" << std::endl;
 	}
 }
 
@@ -217,14 +211,8 @@ static void	convertDouble(std::string literal)
 		else
 			std::cout << "  Char: Non displayable" << std::endl;
 		std::cout << "   Int: " << static_cast<int>(nb) << std::endl;
-		if (literal == "+inf" || literal == "-inf" || literal == "nan")
-			std::cout << " Float: " << nb <<  "f" << std::endl;
-		else
-			std::cout << " Float: " << nb <<  ".0f" << std::endl;
-		if (literal == "+inf" || literal == "-inf" || literal == "nan")
-			std::cout << "Double: " << static_cast<double>(nb) << std::endl;
-		else
-			std::cout << "Double: " << static_cast<double>(nb) << ".0" << std::endl;
+		std::cout << " Float: " << nb <<  ".0f" << std::endl;
+		std::cout << "Double: " << static_cast<double>(nb) << ".0" << std::endl;
 	}
 }
 
