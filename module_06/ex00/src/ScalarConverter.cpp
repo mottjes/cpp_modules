@@ -186,8 +186,16 @@ static void	convertFloat(std::string literal)
 		else
 			std::cout << "  Char: Non displayable" << std::endl;
 		std::cout << "   Int: " << static_cast<int>(nb) << std::endl;
-		std::cout << " Float: " << nb <<  ".0f" << std::endl;
-		std::cout << "Double: " << static_cast<double>(nb) << ".0" << std::endl;
+        if (nb - static_cast<int>(nb) == 0)
+        {
+            std::cout << " Float: " << nb <<  ".0f" << std::endl;
+            std::cout << "Double: " << static_cast<double>(nb) << ".0" << std::endl;
+        } 
+        else
+        {
+            std::cout << " Float: " << nb << "f" << std::endl;
+            std::cout << "Double: " << static_cast<double>(nb) << std::endl;
+        }   
 	}
 }
 
@@ -201,8 +209,8 @@ static void	convertDouble(std::string literal)
 	{
 		std::cout << "  Char: impossible" << std::endl;
 		std::cout << "   Int: impossible" << std::endl;
-		std::cout << " Float: " << nb << "f" << std::endl;
-		std::cout << "Double: " << static_cast<double>(nb) << std::endl;
+		std::cout << " Float: " << static_cast<float>(nb) << "f" << std::endl;
+		std::cout << "Double: " << nb << std::endl;
 	}
 	else
 	{
@@ -211,8 +219,16 @@ static void	convertDouble(std::string literal)
 		else
 			std::cout << "  Char: Non displayable" << std::endl;
 		std::cout << "   Int: " << static_cast<int>(nb) << std::endl;
-		std::cout << " Float: " << nb <<  ".0f" << std::endl;
-		std::cout << "Double: " << static_cast<double>(nb) << ".0" << std::endl;
+        if (nb - static_cast<int>(nb) == 0)
+        {
+            std::cout << " Float: " << static_cast<float>(nb) <<  ".0f" << std::endl;
+            std::cout << "Double: " << nb << ".0" << std::endl;
+        } 
+        else
+        {
+            std::cout << " Float: " << static_cast<float>(nb) << "f" << std::endl;
+            std::cout << "Double: " << nb << std::endl;
+        }
 	}
 }
 
