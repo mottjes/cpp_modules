@@ -10,17 +10,20 @@ private:
 	size_t	_size;
 
 public:
-	Array() : _size(0)
+	Array() : _array(NULL), _size(0)
 	{
-		_array = new T[_size];
 	}
 
 	Array(unsigned int n) : _size(n)
 	{
-		_array = new T[_size];
+        if (_size)
+		    _array = new T[_size];
+        else
+            _array = NULL;
 	}
 	Array(const Array &rhs) 
 	{
+        _array = NULL;
 		*this = rhs;
 	}
 
@@ -37,12 +40,10 @@ public:
 			if (_array != NULL)
 				delete [] _array;
 			_size = rhs.size();
-			if (_size)
-			{
-				_array = new T[rhs.size()];
-				for (size_t i = 0; i < rhs.size(); i++)
-					_array[i] = rhs._array[i];
-			}
+            if (_size)
+			    _array = new T[_size];
+			for (size_t i = 0; i < _size; i++)
+				_array[i] = rhs._array[i];
 		}
     	return *this;
 	}
