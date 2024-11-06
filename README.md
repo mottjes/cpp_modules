@@ -1,5 +1,5 @@
-<p align="center" width="100">
-  <img src="https://github.com/user-attachments/assets/8a9be305-e993-4f5e-9dc5-c55c013d33f4"/>
+<p align="center">
+  <img width="100" src="https://github.com/user-attachments/assets/8a9be305-e993-4f5e-9dc5-c55c013d33f4"/>
 </p>
 
 # cpp_modules
