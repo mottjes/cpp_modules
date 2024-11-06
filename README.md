@@ -1,4 +1,4 @@
-<img src="https://github.com/user-attachments/assets/8a9be305-e993-4f5e-9dc5-c55c013d33f4"  width="42px">
+<img align="left" width="100" src="https://github.com/user-attachments/assets/8a9be305-e993-4f5e-9dc5-c55c013d33f4">
 
 # cpp_modules
 
