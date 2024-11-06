@@ -7,7 +7,7 @@
 ### Description
 
 This are 10 C++ modules with a series of exercises which are designed to learn and understand the specificities of the language and Object-Oriented Programming!
-In order to understand more read the subject pfds inside each module directorys.
+In order to understand more read the subject pdf inside each module directorys.
 
 ### Module List
 
