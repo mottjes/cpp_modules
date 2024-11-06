@@ -1,11 +1,11 @@
-NAME		= harl_2.0
+NAME	= harl_2.0
 
-SRC			=	main.cpp		\
-				Harl.cpp		\
+SRC		=	main.cpp		\
+			Harl.cpp		\
 
-OBJ			= $(SRC:.cpp=.o)
+OBJ		= $(SRC:.cpp=.o)
 
-CC      	= c++
+CC		= c++
 
 FLAGS	= -Wall -Werror -Wextra -std=c++98
 
@@ -23,7 +23,6 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-
-re:    	fclean all
+re:	fclean all
 
 .PHONY: all clean fclean format re
