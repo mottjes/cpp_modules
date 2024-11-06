@@ -46,7 +46,7 @@ int main()
 	std::cout << l.size() << std::endl;
 
 	l.push_back(3);
-	l.push_back(8);
+	l.push_back(5);
 	l.push_back(737);
 	//[...]
 	l.push_back(0);

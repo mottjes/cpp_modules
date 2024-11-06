@@ -8,8 +8,13 @@ class MutantStack : public std::stack<T>
 {
 public:
     MutantStack() : std::stack<T>() {}
-	MutantStack(const MutantStack &rhs) : std::stack<T>(rhs) {}
-	~MutantStack() {}
+    ~MutantStack() {}
+
+	MutantStack(const MutantStack &rhs) : std::stack<T>(rhs) 
+    {
+        *this = rhs;
+    }
+	
 	MutantStack& operator=(const MutantStack &rhs)
     {
         if (this != &rhs)
@@ -17,7 +22,7 @@ public:
     	return *this;
     }
 
-    typedef typename std::deque<T>::iterator iterator;
+    typedef typename std::stack<T>::container_type::iterator iterator;
 
     iterator begin()
     {
