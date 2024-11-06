@@ -1,6 +1,6 @@
 # cpp_modules
 
-![c++](https://github.com/user-attachments/assets/5f985e7d-70a4-4a47-9644-d84f423d4cb4)
+# <img src="https://github.com/user-attachments/assets/8a9be305-e993-4f5e-9dc5-c55c013d33f4"  width="28px">
 
 ### Description
 
