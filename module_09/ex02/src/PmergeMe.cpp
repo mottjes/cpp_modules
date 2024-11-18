@@ -2,6 +2,8 @@
 
 PmergeMe::PmergeMe()
 {
+    _comparisonsVector = 0;
+    _comparisonsDeque = 0;
 }
 
 PmergeMe::PmergeMe(const PmergeMe &rhs)
@@ -21,11 +23,13 @@ PmergeMe& PmergeMe::operator=(const PmergeMe &rhs)
         _vectorPairs = rhs._vectorPairs;
         _deque = rhs._deque;
         _dequePairs = rhs._dequePairs;
+        _comparisonsVector = rhs._comparisonsVector;
+        _comparisonsDeque = rhs._comparisonsDeque;
     }
     return *this;
 }
 
-bool    PmergeMe::validateInput(int argc, char **argv)
+static bool validateInput(int argc, char **argv)
 {
     int i;
 
@@ -46,19 +50,7 @@ bool    PmergeMe::validateInput(int argc, char **argv)
     return true;
 }
 
-void    PmergeMe::fillVector(int argc, char **argv)
-{
-    for (int i = 1; i < argc; i++)
-        _vector.push_back(atoi(argv[i]));
-}
-
-void    PmergeMe::fillDeque(int argc, char **argv)
-{
-    for (int i = 1; i < argc; i++)
-        _deque.push_back(atoi(argv[i]));
-}
-
-void    PmergeMe::printBeforeSorting(int argc, char **argv)
+static void printBeforeSorting(int argc, char **argv)
 {
     std::cout << "Before: ";
     for (int i = 1; i < argc; i++)
@@ -71,6 +63,18 @@ void    PmergeMe::printBeforeSorting(int argc, char **argv)
         std::cout << argv[i] << " ";
     }
     std::cout << std::endl;
+}
+
+void    PmergeMe::fillVector(int argc, char **argv)
+{
+    for (int i = 1; i < argc; i++)
+        _vector.push_back(atoi(argv[i]));
+}
+
+void    PmergeMe::fillDeque(int argc, char **argv)
+{
+    for (int i = 1; i < argc; i++)
+        _deque.push_back(atoi(argv[i]));
 }
 
 void PmergeMe::printAfterSorting()
@@ -204,7 +208,7 @@ int PmergeMe::getJacobsthalNumber(int n)
     return curr;
 }
 
-void    PmergeMe::sortVector()
+void    PmergeMe::mergeInsertionVector()
 {
     int struggler = - 1;
     // saves struggler for later
@@ -218,6 +222,7 @@ void    PmergeMe::sortVector()
     // sorts each pair
     for (std::vector<std::pair<int, int> >::iterator it = _vectorPairs.begin(); it != _vectorPairs.end(); it++)
     {
+        _comparisonsVector++;
         if (it->first > it->second)
             std::swap(it->first, it->second);
     }
@@ -275,7 +280,7 @@ void    PmergeMe::sortVector()
     }
 }
 
-void    PmergeMe::sortDeque()
+void    PmergeMe::mergeInsertionDeque()
 {
     int struggler = - 1;
     // saves struggler for later
@@ -362,16 +367,16 @@ void    PmergeMe::sort(int argc, char **argv)
     printBeforeSorting(argc, argv);
     start = clock();
     fillVector(argc, argv);
-    sortVector();
+    mergeInsertionVector();
     end = clock();
-    elapsedTime = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000;
+    elapsedTime = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
     printAfterSorting();
     std::cout << "Time to process a range of " << _vector.size() << " elements with std::vector container: " << elapsedTime << " us" << std::endl;
 
     start = clock();
     fillDeque(argc, argv);
-    sortDeque();
+    mergeInsertionDeque();
     end = clock();
-    elapsedTime = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000;
+    elapsedTime = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
     std::cout << "Time to process a range of " << _vector.size() << " elements with std::deque container: " << elapsedTime << " us" << std::endl;
 }

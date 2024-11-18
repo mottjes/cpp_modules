@@ -22,7 +22,7 @@ RPN& RPN::operator=(const RPN &rhs)
 
 void RPN::calculate(std::string input)
 {
-    float   nbr1, nbr2;
+    float   a, b;
 
     for (size_t i = 0; i < input.size(); i++)
     {
@@ -34,30 +34,30 @@ void RPN::calculate(std::string input)
         {
             if (_stack.size() < 2)
             {
-                std::cout << "Error: invalid expression" << std::endl;
+                std::cerr << "Error: invalid expression" << std::endl;
                 return ;
             }
-            nbr1 = _stack.top();
+            b = _stack.top();
             _stack.pop();
-            nbr2 = _stack.top();
+            a = _stack.top();
             _stack.pop();
             if (input[i] == '+')
-                _stack.push(nbr2 + nbr1);
+                _stack.push(a + b);
             else if (input[i] == '-')
-                _stack.push(nbr2 - nbr1);
+                _stack.push(a - b);
             else if (input[i] == '*')
-                _stack.push(nbr2 * nbr1);
+                _stack.push(a * b);
             else if (input[i] == '/')
-                _stack.push(nbr2 / nbr1);
+                _stack.push(a / b);
         }
         else
         {
-            std::cout << "Error: invalid character" << std::endl;
+            std::cerr << "Error: invalid character" << std::endl;
             return ;
         }
     }
     if (_stack.size() != 1)
-        std::cout << "Error: invalid expression" << std::endl;
+        std::cerr << "Error: invalid expression" << std::endl;
     else
-        std::cout << _stack.top() << std::endl;
+        std::cerr << _stack.top() << std::endl;
 }

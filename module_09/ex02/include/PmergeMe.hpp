@@ -15,14 +15,14 @@ private:
     std::vector<std::pair<int, int> >   _vectorPairs;
     std::deque<int>                     _deque;
     std::deque<std::pair<int, int> >    _dequePairs;
+    int                                 _comparisonsVector;
+    int                                 _comparisonsDeque;
 
-    bool                validateInput(int argc, char **argv);
-    void                printBeforeSorting(int argc, char **argv);
     void                printAfterSorting();
     void                fillVector(int argc, char **argv);
     void                fillDeque(int argc, char **argv);
-    void                sortVector();
-    void                sortDeque();
+    void                mergeInsertionVector();
+    void                mergeInsertionDeque();
     void                buildVectorPairs();
     void                buildDequePairs();
     template<typename T>
