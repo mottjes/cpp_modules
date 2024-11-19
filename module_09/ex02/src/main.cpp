@@ -2,13 +2,16 @@
 
 int main(int argc, char **argv)
 {
-    if (argc < 2)
-    {
-        std::cerr << "Error: no input" << std::endl;
+    if (argc <= 2)
         return 1;
-    }
-    PmergeMe sorter;
+    try
+    {
+        PmergeMe    sorter;
     
-    sorter.sort(argc, argv);
-    return 0;
+        sorter.sort(argc, argv);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }

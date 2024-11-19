@@ -2,8 +2,10 @@
 
 PmergeMe::PmergeMe()
 {
-    _comparisonsVector = 0;
-    _comparisonsDeque = 0;
+}
+
+PmergeMe::~PmergeMe()
+{
 }
 
 PmergeMe::PmergeMe(const PmergeMe &rhs)
@@ -11,49 +13,20 @@ PmergeMe::PmergeMe(const PmergeMe &rhs)
     *this = rhs;
 }
 
-PmergeMe::~PmergeMe()
-{
-}
-
 PmergeMe& PmergeMe::operator=(const PmergeMe &rhs)
 {
     if (this != &rhs)
     {
         _vector = rhs._vector;
-        _vectorPairs = rhs._vectorPairs;
         _deque = rhs._deque;
-        _dequePairs = rhs._dequePairs;
-        _comparisonsVector = rhs._comparisonsVector;
-        _comparisonsDeque = rhs._comparisonsDeque;
     }
     return *this;
 }
 
-static bool validateInput(int argc, char **argv)
-{
-    int i;
-
-    argc--;
-    while (argc)
-    {
-        i = 0;
-        while (argv[argc][i] && iswspace(argv[argc][i]))
-            i++;
-        while (argv[argc][i])
-        {
-            if (!isdigit(argv[argc][i]))
-                return false;
-            i++;
-        }
-        argc--;
-    }
-    return true;
-}
-
-static void printBeforeSorting(int argc, char **argv)
+static void printBefore(char **argv)
 {
     std::cout << "Before: ";
-    for (int i = 1; i < argc; i++)
+    for (int i = 1; argv[i]; i++)
     {
         if (i > 10)
         {
@@ -65,24 +38,13 @@ static void printBeforeSorting(int argc, char **argv)
     std::cout << std::endl;
 }
 
-void    PmergeMe::fillVector(int argc, char **argv)
-{
-    for (int i = 1; i < argc; i++)
-        _vector.push_back(atoi(argv[i]));
-}
-
-void    PmergeMe::fillDeque(int argc, char **argv)
-{
-    for (int i = 1; i < argc; i++)
-        _deque.push_back(atoi(argv[i]));
-}
-
-void PmergeMe::printAfterSorting()
+template <typename T>
+static void printAfter(const T& container)
 {
     int i = 0;
 
-    std::cout << "After:  ";
-    for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++)
+    std::cout << "After: ";
+    for (typename T::const_iterator it = container.begin(); it != container.end(); it++)
     {
         i++;
         if (i > 10)
@@ -95,101 +57,7 @@ void PmergeMe::printAfterSorting()
     std::cout << std::endl;
 }
 
-void    PmergeMe::buildVectorPairs()
-{
-    int nbr1, nbr2;
-
-    while(_vector.size())
-    {
-        nbr1 = _vector.back();
-        _vector.pop_back();
-        nbr2 = _vector.back();
-        _vector.pop_back();
-        _vectorPairs.push_back(std::make_pair(nbr1 , nbr2));
-    }
-}
-
-void    PmergeMe::buildDequePairs()
-{
-    int nbr1, nbr2;
-
-    while(_deque.size())
-    {
-        nbr1 = _deque.back();
-        _deque.pop_back();
-        nbr2 = _deque.back();
-        _deque.pop_back();
-        _dequePairs.push_back(std::make_pair(nbr1 , nbr2));
-    }
-}
-
-template <typename T>
-void    PmergeMe::recursiveInsertionSort(T& pairs, int n)
-{
-    // Base case: if the array size is 1 or less, it's already sorted
-    if (n <= 1)
-        return;
-
-    // Sort the first n-1 elements
-    recursiveInsertionSort(pairs, n - 1);
-
-    // Insert the last element at the correct position
-    std::pair<int, int> last = pairs[n - 1];
-    int j = n - 2;
-
-    // Move elements of pairs[0..n-2], that are greater than 'last',
-    // to one position ahead of their current position
-    while (j >= 0 && pairs[j].second > last.second)
-    {
-        pairs[j + 1] = pairs[j];
-        j--;
-    }
-    pairs[j + 1] = last;
-}
-
-template <typename T>
-void    PmergeMe::calculateOrderOfInsertation(T &order, int pendSize)
-{
-    int                 jacobsthalNumber;
-    int                 highest = 1;
-    int                 n = 3;
-
-    for(int i = 0; i < pendSize; n++)
-    {
-        jacobsthalNumber = getJacobsthalNumber(n);
-        for (int j = 0; (jacobsthalNumber - j) > highest; j++)
-        {
-            order.push_back(jacobsthalNumber - j);
-            i++;
-        }
-        highest = jacobsthalNumber;
-        if (highest > pendSize)
-            break ;
-    }
-}
-
-template <typename T>
-int PmergeMe::binarySearch(T &mainChain, int low, int high, int target)
-{
-    while (low <= high) 
-    {
-        int mid = low + (high - low) / 2;
-
-        // Check if target is present at mid
-        if (mainChain[mid] == target)
-            return mid;
-        // If target is greater, ignore the left half
-        if (mainChain[mid] < target)
-            low = mid + 1;
-        // If target is smaller, ignore the right half
-        else
-            high = mid - 1;
-    }
-    // If we reach here, the element was not present
-    return high;
-}
-
-int PmergeMe::getJacobsthalNumber(int n)
+static int getJacobsthalNumber(int n)
 {
     if (n == 0)
         return 0;
@@ -208,175 +76,159 @@ int PmergeMe::getJacobsthalNumber(int n)
     return curr;
 }
 
-void    PmergeMe::mergeInsertionVector()
+template <typename T>
+static void calculateOrderOfInsertation(T &order, int size)
 {
-    int struggler = - 1;
-    // saves struggler for later
-    if (_vector.size() % 2)
-    {
-        struggler = _vector.back();
-        _vector.pop_back();
-    }
-    // puts list into pairs
-    buildVectorPairs();
-    // sorts each pair
-    for (std::vector<std::pair<int, int> >::iterator it = _vectorPairs.begin(); it != _vectorPairs.end(); it++)
-    {
-        _comparisonsVector++;
-        if (it->first > it->second)
-            std::swap(it->first, it->second);
-    }
-    // sorts pairs by comparing the bigger number
-    recursiveInsertionSort(_vectorPairs, _vectorPairs.size());
-    // build pend and main chain and push first of pend infront of main chain
-    std::vector<int>    pend;
+    int jacobsthalNumber;
+    int highest = 1;
+    int n = 3;
 
-    for (size_t i = 0; i < _vectorPairs.size(); i++)
+    for(int i = 0; i < size; n++)
     {
-        _vector.push_back(_vectorPairs[i].second);
-        pend.push_back(_vectorPairs[i].first);
-    }
-    //push smaller part of smallest pair infornt of main chain
-    _vector.insert(_vector.begin(), pend[0]);
-
-    //  get right insertion order
-    std::vector<int> insertionOrder;
-    calculateOrderOfInsertation(insertionOrder, pend.size());
-
-    //  binary search for place to insert
-    int place;
-    std::vector<int>::iterator it;
-
-    for (size_t i = 0; i < insertionOrder.size(); i++)
-    {
-        if (size_t(insertionOrder[i]) <= pend.size())
+        jacobsthalNumber = getJacobsthalNumber(n);
+        for (int j = 0; (jacobsthalNumber - j) > highest; j++)
         {
-            place = binarySearch(_vector, 0, _vector.size(), pend[insertionOrder[i] - 1]);
-            it = _vector.begin();
-            while (place > - 1)
-            {
-                it++;
-                place--;
-            }
-            _vector.insert(it, pend[insertionOrder[i] - 1]);
+            order.push_back(jacobsthalNumber - j);
+            i++;
         }
-    }
-    // push struggler if there
-    if (struggler != - 1)
-    {
-        if (struggler > _vector.back())
-            _vector.push_back(struggler);
-        else
-        {
-            place = binarySearch(_vector, 0, _vector.size(), struggler);
-            it = _vector.begin();
-            while (place > - 1)
-            {
-                it++;
-                place--;
-            }
-            _vector.insert(it, struggler);
-        }
+        highest = jacobsthalNumber;
+        if (highest > size)
+            break ;
     }
 }
 
-void    PmergeMe::mergeInsertionDeque()
+static std::vector<int> mergeInsertionVector(std::vector<int> &d)
 {
-    int struggler = - 1;
-    // saves struggler for later
-    if (_deque.size() % 2)
-    {
-        struggler = _deque.back();
-        _deque.pop_back();
-    }
-    (void)struggler;
-    // puts list into pairs
-    buildDequePairs();
-    // sorts each pair
-    for (std::deque<std::pair<int, int> >::iterator it = _dequePairs.begin(); it != _dequePairs.end(); it++)
-    {
-        if (it->first > it->second)
-            std::swap(it->first, it->second);
-    }
-    // sorts pairs by comparing the bigger number
-    recursiveInsertionSort(_dequePairs, _dequePairs.size());
-    // build pend and main chain and push first of pend infront of main chain
-    std::deque<int>    pend;
+    if (d.size() <= 1)
+        return d;
 
-    for (size_t i = 0; i < _dequePairs.size(); i++)
+    int n = d.size();
+
+    // Step 1: Pairwise comparison
+    std::vector<int> a, b;
+
+    // Split into larger and smaller half
+    for (int i = 0; i < n / 2; i++)
     {
-        _deque.push_back(_dequePairs[i].second);
-        pend.push_back(_dequePairs[i].first);
-    }
-    //push smaller part of smallest pair infornt of main chain
-    _deque.insert(_deque.begin(), pend[0]);
-
-    //  get right insertion order
-    std::deque<int> insertionOrder;
-    calculateOrderOfInsertation(insertionOrder, pend.size());
-
-    //  binary search for place to insert
-    int place;
-    std::deque<int>::iterator it;
-
-    for (size_t i = 0; i < insertionOrder.size(); i++)
-    {
-        if (size_t(insertionOrder[i]) <= pend.size())
+        if (d[i] > d[i + n / 2])
         {
-            place = binarySearch(_deque, 0, _deque.size(), pend[insertionOrder[i] - 1]);
-            it = _deque.begin();
-            while (place > - 1)
-            {
-                it++;
-                place--;
-            }
-            _deque.insert(it, pend[insertionOrder[i] - 1]);
+            a.push_back(d[i]);
+            b.push_back(d[i + n / 2]);
         }
-    }
-    // push struggler if there
-    if (struggler != - 1)
-    {
-        if (struggler > _deque.back())
-            _deque.push_back(struggler);
         else
         {
-            place = binarySearch(_deque, 0, _deque.size(), struggler);
-            it = _deque.begin();
-            while (place > - 1)
-            {
-                it++;
-                place--;
-            }
-            _deque.insert(it, struggler);
+            a.push_back(d[i + n / 2]);
+            b.push_back(d[i]);
         }
+    }
+
+    // Handle odd-amount of numbers 
+    if (n % 2 == 1)
+        b.push_back(d[n - 1]);
+
+    // Step 2: Recursion and Renaming
+    std::vector<std::pair<int, int> > m(n / 2);
+
+    for (int i = 0; i < n / 2; ++i)
+        m[i] = std::make_pair(a[i], b[i]); // Store mapping
+    
+    a = mergeInsertionVector(a);
+    
+    // Step 3: Insertion
+    std::vector<int> result;
+
+    // Restore mapping
+    for (size_t i = 0; i <= b.size(); i++)
+    {
+        for (size_t j = 0; j < m.size(); j++)
+        {
+            if (m[j].first == b[i])
+            {
+                b[i] = m[j].second;
+                break;
+            }
+        }
+    }
+
+    result.push_back(b[0]);
+    for (std::vector<int>::iterator it = a.begin(); it != a.end(); it++)
+        result.push_back(*it);
+
+    std::vector<int> insertion_order;
+
+    calculateOrderOfInsertation(insertion_order, (b.size() - 1));
+    for (size_t i = 1; i < b.size(); i++)
+    {
+        if (size_t(insertion_order[i - 1]) <= b.size())
+        {
+            std::vector<int>::iterator it = std::lower_bound(result.begin(), result.end(), b[insertion_order[i - 1] - 1]);
+            result.insert(it, b[insertion_order[i - 1] - 1]);
+        }
+    }
+    return result;
+}
+
+// static void mergeInsertionDeque()
+// {
+
+// }
+
+void PmergeMe::_fillVector(char **argv)
+{
+    for(int i = 1; argv[i]; i++)
+    {
+        for(int j = 0; argv[i][j]; j++)
+        {
+            if (!isdigit(argv[i][j]))
+                throw std::invalid_argument("arguments is not an digit");
+        }
+        _vector.push_back(atoi(argv[i]));
+    }
+}
+
+void PmergeMe::_fillDeque(char **argv)
+{
+    for(int i = 1; argv[i]; i++)
+    {
+        for(int j = 0; argv[i][j]; j++)
+        {
+            if (!isdigit(argv[i][j]))
+                throw std::invalid_argument("arguments is not an digit");
+        }
+        _deque.push_back(atoi(argv[i]));
     }
 }
 
 void    PmergeMe::sort(int argc, char **argv)
 {
-    clock_t start , end;
-    double  elapsedTime;
-
-    if (argc == 2)
+    if (argc <= 2)
         return ;
-    if (validateInput(argc, argv) == false)
-    {
-        std::cout << "Error: wrong Input" << std::endl;
-        return ;
-    }
-    printBeforeSorting(argc, argv);
-    start = clock();
-    fillVector(argc, argv);
-    mergeInsertionVector();
-    end = clock();
-    elapsedTime = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
-    printAfterSorting();
-    std::cout << "Time to process a range of " << _vector.size() << " elements with std::vector container: " << elapsedTime << " us" << std::endl;
+    
 
+    // validate input
+
+    double  time_vector_us, time_deque_us;
+    (void)time_deque_us;
+    clock_t start, end;
+
+    // ===== Vector ===== //
     start = clock();
-    fillDeque(argc, argv);
-    mergeInsertionDeque();
+    _fillVector(argv);
+    _vector = mergeInsertionVector(_vector);
     end = clock();
-    elapsedTime = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
-    std::cout << "Time to process a range of " << _vector.size() << " elements with std::deque container: " << elapsedTime << " us" << std::endl;
+    time_vector_us = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
+    
+    // ===== Deque ===== //
+    // start = clock();
+    // _fillDeque(argv);
+    // _deque = mergeInsertionDeque(_deque);
+    // end = clock();
+    // time_deque_us = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
+
+    // === Printing ==== //
+    printBefore(argv);
+    printAfter(_vector);
+    // printAfter(_deque);
+    std::cout << "Time to process a range of " << _vector.size() << " elements with std::vector container: " << time_vector_us << " us" << std::endl;
+    // std::cout << "Time to process a range of " << _deque.size() << " elements with std::deque container: " << time_deque_us << " us" << std::endl;
 }
