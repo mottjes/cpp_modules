@@ -59,5 +59,5 @@ void RPN::calculate(std::string input)
     if (_stack.size() != 1)
         std::cerr << "Error: invalid expression" << std::endl;
     else
-        std::cerr << _stack.top() << std::endl;
+        std::cout << _stack.top() << std::endl;
 }
