@@ -162,7 +162,7 @@ void    BitcoinExchange::_calculate(float value, std::string date)
     std::map<std::string, float>::iterator  it;
 
     it = _btcData.lower_bound(date);
-    if (it == _btcData.end() || it->first != date && it != _btcData.begin())
+    if (it == _btcData.end() || (it->first != date && it != _btcData.begin()))
         it--;
     std::cout << date << " => " << value << " = "  << it->second * value << std::endl;
 }
